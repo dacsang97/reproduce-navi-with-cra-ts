@@ -20,6 +20,13 @@ export default createSwitch({
     "/reference": createPage({
       title: "API Reference",
       getContent: () => import("./pages/Reference")
+    }),
+    "/login": createPage({
+      title: "Login",
+      getContent: async () => {
+        const SignIn = await import("./pages/SignIn");
+        return SignIn;
+      }
     })
   }
 });
