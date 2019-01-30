@@ -1,28 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import {
+  NavLink,
+  NavProvider,
+  NavContent,
+  NavNotFoundBoundary
+} from "react-navi";
 
-class App extends Component {
+export interface Props {
+  navigation: any;
+}
+
+class App extends React.Component<Props> {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <NavProvider navigation={this.props.navigation}>
+        <div className="App">
+          <header className="App-header">
+            <h1 className="App-title">
+              <NavLink href="/">
+                <img src="https://frontarm.com/navi-logo.png" />
+                <span>Navi</span>
+              </NavLink>
+            </h1>
+          </header>
+          <main>
+            <NavNotFoundBoundary render={renderNotFound}>
+              <NavContent />
+            </NavNotFoundBoundary>
+          </main>
+        </div>
+      </NavProvider>
     );
   }
+}
+
+function renderNotFound() {
+  return (
+    <div className="App-error">
+      <h1>404 - Not Found</h1>
+    </div>
+  );
 }
 
 export default App;
